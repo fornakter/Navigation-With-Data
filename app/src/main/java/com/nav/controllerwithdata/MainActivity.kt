@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.nav.controllerwithdata.screens.Screen1
+import com.nav.controllerwithdata.screens.Screen2
 import com.nav.controllerwithdata.ui.theme.NavControllerWithDataTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,39 +34,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             NavControllerWithDataTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "Screen1"){
-                    composable("Screen1"){
-                            entry -> val text = entry.savedStateHandle.get<String>("my_text")
-                        
-                        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally) {
-                            text?.let { Text(text = text) }
-                            Text(text = "Screen1")
-                            Button(onClick = {navController.navigate("Screen2")}) {
-                                Text(text = "Go to secound screen")
-                            }
-                        }
+                NavHost(navController = navController, startDestination = "Screen1") {
+                    composable("Screen1") {
+                        Screen1(navController = navController)
                     }
-
-                    composable("Screen2"){
-                        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally) {
-                            var text by remember {
-                                mutableStateOf("")
-                            }
-                            Text(text = "Screen2")
-                            OutlinedTextField(value = text, 
-                                onValueChange = {text = it})
-                            Button(onClick = { navController.navigate("Screen1")
-                                                navController.currentBackStackEntry
-                                                    ?.savedStateHandle
-                                                    ?.set("my_text", text)}) {
-
-                                Text(text = "Apply")
-                            }
-                    }}
+                    composable("Screen2") {
+                        Screen2(navController = navController)
+                    }
                 }
             }
         }
     }
 }
+

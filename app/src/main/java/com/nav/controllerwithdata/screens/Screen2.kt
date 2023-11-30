@@ -19,8 +19,7 @@ import androidx.navigation.NavController
 @Composable
 fun Screen2(navController: NavController) {
     val text = remember {
-        mutableStateOf("")
-    }
+        mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
