@@ -10,33 +10,30 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
 @Composable
 fun Screen2(navController: NavController) {
-    val text = remember {
-        mutableStateOf("") }
-
-    Column(modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally)
-    {
+    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        var text by remember {
+            mutableStateOf("") }
         Text(text = "Screen2")
-        OutlinedTextField(value = text.value, onValueChange = {text.value = it})
+        OutlinedTextField(value = text,
+            onValueChange = {text = it})
         Button(onClick = {
             navController.navigate("Screen1")
             navController.currentBackStackEntry
                 ?.savedStateHandle
-                ?.set("my_text", text.value)
-        }) {
+                ?.set("my_text", text)}) {
+
             Text(text = "Apply")
-            
         }
-
     }
-
 }

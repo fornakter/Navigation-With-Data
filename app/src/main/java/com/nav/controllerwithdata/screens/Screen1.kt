@@ -13,18 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 
 @Composable
-fun Screen1(navController: NavController) {
-    val text = remember {
-        mutableStateOf("") }
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        text.value.let { Text(text = it) }
+fun Screen1(navController: NavController, text: String?) {
+    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        text?.let { Text(text = text) }
         Text(text = "Screen1")
-        Button(onClick = { navController.navigate("Screen2") }) {
+        Button(onClick = {navController.navigate("Screen2")}) {
             Text(text = "Go to second screen")
         }
     }
